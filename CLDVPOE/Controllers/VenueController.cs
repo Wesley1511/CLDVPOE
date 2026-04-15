@@ -9,10 +9,8 @@ namespace CLDVPOE.Controllers
 
         public IActionResult Index()
         {
-            var venues = _context.Venues.ToList();
-            return View(venues);
+            return View();
         }
-
 
         public IActionResult Create()
         {
