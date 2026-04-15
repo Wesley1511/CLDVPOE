@@ -1,0 +1,25 @@
+﻿<h1>Create Booking</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="BookingDate" class="form-label">Booking Date</label>
+        <input type="date" name="BookingDate" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="BookingStatus" class="form-label">Booking Status</label>
+        <input type="text" name="BookingStatus" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="VenueID" class="form-label">Venue ID</label>
+        <input type="number" name="VenueID" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="EventID" class="form-label">Event ID</label>
+        <input type="number" name="EventID" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Booking</button>
+</form>
