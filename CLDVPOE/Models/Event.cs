@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CLDVPOE.Models
 {
@@ -9,7 +8,7 @@ namespace CLDVPOE.Models
         public int EventID { get; set; }
 
         [Required]
-        public string EventName { get; set; }
+        public string EventName { get; set; } = string.Empty;
 
         [Required]
         public DateTime StartDate { get; set; }
@@ -18,5 +17,6 @@ namespace CLDVPOE.Models
         public DateTime EndDate { get; set; }
 
         public string? EventDescription { get; set; }
+
     }
 }

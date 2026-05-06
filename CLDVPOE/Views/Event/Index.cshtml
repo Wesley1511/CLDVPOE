@@ -1,5 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<CLDVPOE.Models.Event>
+
+<h2>Events</h2>
+<a class="button" href="/Event/Create">Add Event</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var e in Model)
+    {
+        <tr>
+            <td>@e.EventName</td>
+            <td>@e.StartDate.ToShortDateString()</td>
+            <td>@e.EndDate.ToShortDateString()</td>
+            <td>
+                <a href="/Event/Edit/@e.EventID">Edit</a> |
+                <a href="/Event/Delete/@e.EventID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

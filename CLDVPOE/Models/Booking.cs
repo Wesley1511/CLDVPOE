@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CLDVPOE.Models
@@ -12,8 +11,7 @@ namespace CLDVPOE.Models
         [Required]
         public DateTime BookingDate { get; set; }
 
-        [Required]
-        public string BookingStatus { get; set; }
+        public string BookingStatus { get; set; } = "Confirmed";
 
         [Required]
         public int VenueID { get; set; }

@@ -1,6 +1,6 @@
 ﻿@model CLDVPOE.Models.Event
 
-<h2>Add Event</h2>
+<h2>Edit Event</h2>
 
 @if (!ViewData.ModelState.IsValid)
 {
@@ -9,8 +9,9 @@
     </div>
 }
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="EventID" />
 
     <div>
         <label asp-for="EventName">Name</label>
@@ -29,12 +30,12 @@
         <input asp-for="EndDate" type="date" />
         <span asp-validation-for="EndDate" style="color:red"></span>
     </div>
-
     <div>
         <label asp-for="EventDescription">Description</label>
-        <textarea asp-for="EventDescription"></textarea>
+        <input asp-for="EventDescription" />
         <span asp-validation-for="EventDescription" style="color:red"></span>
     </div>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Changes</button>
+    <a href="/Event">Cancel</a>
 </form>

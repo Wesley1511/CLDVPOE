@@ -1,0 +1,12 @@
+﻿@model CLDVPOE.Models.Event
+
+<h2>Delete Event</h2>
+
+<p>Are you sure you want to delete <strong>@Model.EventName</strong>?</p>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="EventID" />
+    <button type="submit" style="color:red">Yes, Delete</button>
+    <a href="/Event">Cancel</a>
+</form>

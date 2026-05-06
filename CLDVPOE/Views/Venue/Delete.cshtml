@@ -1,0 +1,17 @@
+﻿@model CLDVPOE.Models.Venue
+
+<h2>Delete Venue</h2>
+
+<p>Are you sure you want to delete <strong>@Model.VenueName</strong>?</p>
+
+@if (!string.IsNullOrEmpty(Model.ImagePath))
+{
+    <img src="@Model.ImagePath" width="100" />
+}
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="VenueID" />
+    <button type="submit" style="color:red">Yes, Delete</button>
+    <a href="/Venue">Cancel</a>
+</form>

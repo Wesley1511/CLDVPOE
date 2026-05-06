@@ -1,1 +1,32 @@
-﻿
+﻿@model IEnumerable<CLDVPOE.Models.Venue>
+
+<h2>Venues</h2>
+<a class="button" href="/Venue/Create">Add Venue</a>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Capacity</th>
+        <th>Image</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var v in Model)
+    {
+        <tr>
+            <td>@v.VenueName</td>
+            <td>@v.Location</td>
+            <td>@v.Capacity</td>
+            <td>
+                @if (!string.IsNullOrEmpty(v.ImagePath))
+                {
+                    <img src="@v.ImagePath" width="100" />
+                }
+            </td>
+            <td>
+                <a href="/Venue/Edit/@v.VenueID">Edit</a> |
+                <a href="/Venue/Delete/@v.VenueID">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

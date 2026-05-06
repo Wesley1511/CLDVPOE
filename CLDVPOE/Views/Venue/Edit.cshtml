@@ -1,9 +1,18 @@
 ﻿@model CLDVPOE.Models.Venue
 
-<h2>Add Venue</h2>
+<h2>Edit Venue</h2>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red">
+        @Html.ValidationSummary(false)
+    </div>
+}
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
     @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="VenueID" />
+    <input type="hidden" asp-for="ImagePath" />
 
     <div>
         <label asp-for="VenueName">Name</label>
@@ -24,9 +33,18 @@
     </div>
 
     <div>
-        <label>Upload Image</label>
+        <label>Current Image</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" width="100" />
+        }
+    </div>
+
+    <div>
+        <label>Upload New Image (optional)</label>
         <input type="file" name="imageFile" />
     </div>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Changes</button>
+    <a href="/Venue">Cancel</a>
 </form>
