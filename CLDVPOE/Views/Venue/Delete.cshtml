@@ -4,6 +4,13 @@
 
 <p>Are you sure you want to delete <strong>@Model.VenueName</strong>?</p>
 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red">
+        @Html.ValidationSummary(false)
+    </div>
+}
+
 @if (!string.IsNullOrEmpty(Model.ImagePath))
 {
     <img src="@Model.ImagePath" width="100" />

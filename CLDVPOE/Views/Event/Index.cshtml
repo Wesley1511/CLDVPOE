@@ -8,6 +8,7 @@
         <th>Name</th>
         <th>Start</th>
         <th>End</th>
+        <th>Description</th>
         <th>Actions</th>
     </tr>
     @foreach (var e in Model)
@@ -16,6 +17,7 @@
             <td>@e.EventName</td>
             <td>@e.StartDate.ToShortDateString()</td>
             <td>@e.EndDate.ToShortDateString()</td>
+            <td>@e.EventDescription</td>
             <td>
                 <a href="/Event/Edit/@e.EventID">Edit</a> |
                 <a href="/Event/Delete/@e.EventID">Delete</a>

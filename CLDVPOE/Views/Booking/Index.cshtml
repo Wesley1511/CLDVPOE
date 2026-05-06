@@ -5,18 +5,24 @@
 
 <table>
     <tr>
-        <th>Date</th>
+        <th>BookingID</th>
         <th>Status</th>
         <th>Event</th>
         <th>Venue</th>
+        <th>Date</th>
+        <th>Actions</th>
     </tr>
     @foreach (var b in Model)
     {
         <tr>
-            <td>@b.BookingDate.ToShortDateString()</td>
+            <td>@b.BookingID</td>
             <td>@b.BookingStatus</td>
             <td>@b.Event?.EventName</td>
             <td>@b.Venue?.VenueName</td>
+            <td>@b.BookingDate.ToShortDateString()</td>
+            <td>
+                <a href="/Booking/Delete/@b.BookingID">Delete</a>
+            </td>
         </tr>
     }
 </table>

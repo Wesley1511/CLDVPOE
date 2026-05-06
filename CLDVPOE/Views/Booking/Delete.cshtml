@@ -1,8 +1,8 @@
-﻿@model CLDVPOE.Models.Event
+﻿@model CLDVPOE.Models.Booking
 
-<h2>Delete Event</h2>
+<h2>Delete Booking</h2>
 
-<p>Are you sure you want to delete <strong>@Model.EventName</strong>?</p>
+<p>Are you sure you want to delete this booking?</p>
 
 @if (!ViewData.ModelState.IsValid)
 {
@@ -10,10 +10,9 @@
         @Html.ValidationSummary(false)
     </div>
 }
-
 <form asp-action="Delete" method="post">
     @Html.AntiForgeryToken()
-    <input type="hidden" asp-for="EventID" />
+    <input type="hidden" asp-for="BookingID" />
     <button type="submit" style="color:red">Yes, Delete</button>
-    <a href="/Event">Cancel</a>
+    <a href="/Booking">Cancel</a>
 </form>

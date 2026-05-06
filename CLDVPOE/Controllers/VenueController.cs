@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CLDVPOE.Models;
 using Azure.Storage.Blobs;
+using Microsoft.EntityFrameworkCore;
 
 namespace CLDVPOE.Controllers
 {
@@ -122,11 +123,20 @@ namespace CLDVPOE.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var venue = await _context.Venues.FindAsync(id);
-            if (venue != null)
+            if (venue == null) return NotFound();
+
+            bool hasBookings = await _context.Bookings
+                .AnyAsync(b => b.VenueID == id);
+
+            if (hasBookings)
             {
-                _context.Venues.Remove(venue);
-                await _context.SaveChangesAsync();
+                ModelState.AddModelError("", "Cannot delete this venue because it has active bookings.");
+                return View("Delete", venue);
             }
+
+            _context.Venues.Remove(venue);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Index");
         }
     }
