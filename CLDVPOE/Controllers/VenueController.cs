@@ -77,7 +77,7 @@ namespace CLDVPOE.Controllers
 
             if (ModelState.IsValid)
             {
-                // Upload new image if provided
+
                 if (imageFile != null && imageFile.Length > 0)
                 {
                     var connectionString = _configuration.GetConnectionString("AzureStorage");
