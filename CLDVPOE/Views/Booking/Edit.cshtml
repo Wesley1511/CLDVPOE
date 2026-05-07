@@ -1,0 +1,36 @@
+﻿@model CLDVPOE.Models.Booking
+
+<h2>Edit Booking</h2>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red">
+        @Html.ValidationSummary(false)
+    </div>
+}
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="BookingID" />
+
+    <div>
+        <label asp-for="BookingDate">Date</label>
+        <input asp-for="BookingDate" type="date" />
+        <span asp-validation-for="BookingDate" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="EventID">Event</label>
+        <select asp-for="EventID" asp-items="ViewBag.Events"></select>
+        <span asp-validation-for="EventID" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="VenueID">Venue</label>
+        <select asp-for="VenueID" asp-items="ViewBag.Venues"></select>
+        <span asp-validation-for="VenueID" style="color:red"></span>
+    </div>
+
+    <button type="submit">Save Changes</button>
+    <a href="/Booking">Cancel</a>
+</form>

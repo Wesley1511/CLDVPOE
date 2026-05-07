@@ -93,27 +93,30 @@
         <a href="/Booking">Bookings</a>
 
         <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
-            <input type="text"
-                   placeholder="Search..."
-                   style="
-            padding: 7px 12px;
-            border-radius: 4px;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            width: 200px;
-            " />
-            <button style="
-                padding: 7px 14px;
-                background-color: #3d5166;
-                color: white;
-                border: none;
+            <form asp-controller="Search" asp-action="Index" method="get" style="display:flex; gap:8px;">
+                <input type="text"
+                       name="q"
+                       placeholder="Search..."
+                       style="
+                padding: 7px 12px;
                 border-radius: 4px;
-                cursor: pointer;
+                border: none;
+                outline: none;
                 font-size: 14px;
-                ">
-                Search
-            </button>
+                width: 200px;
+                " />
+                <button type="submit" style="
+                    padding: 7px 14px;
+                    background-color: #3d5166;
+                    color: white;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    ">
+                    Search
+                </button>
+            </form>
         </div>
     </nav>
 

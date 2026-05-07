@@ -8,6 +8,7 @@
         <th>BookingID</th>
         <th>Status</th>
         <th>Event</th>
+        <th>Description</th>
         <th>Venue</th>
         <th>Date</th>
         <th>Actions</th>
@@ -18,9 +19,11 @@
             <td>@b.BookingID</td>
             <td>@b.BookingStatus</td>
             <td>@b.Event?.EventName</td>
+            <td>@b.Event?.EventDescription</td>
             <td>@b.Venue?.VenueName</td>
             <td>@b.BookingDate.ToShortDateString()</td>
             <td>
+                <a href="/Booking/Edit/@b.BookingID">Edit</a> |
                 <a href="/Booking/Delete/@b.BookingID">Delete</a>
             </td>
         </tr>
