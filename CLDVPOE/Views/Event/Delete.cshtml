@@ -4,7 +4,7 @@
 
 <p>Are you sure you want to delete <strong>@Model.EventName</strong>?</p>
 
-@if (!ViewData.ModelState.IsValid)
+@if (!ViewData.ModelState.IsValid) //helps to display an error in red if the user has tried to delete an event with an active booking
 {
     <div style="color:red">
         @Html.ValidationSummary(false)

@@ -3,9 +3,14 @@ using CLDVPOE.Models;
 using Azure.Storage.Blobs;
 using Microsoft.EntityFrameworkCore;
 
+/*--------------------------
+ The code on lines 36 to 53 was generated with the assistance of Claude 
+ This is recycled from lines 87 to 109
+ ---------------------------*/
+
 namespace CLDVPOE.Controllers
 {
-    public class VenueController : Controller
+    public class VenueController : Controller       //controller for the venue view
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
@@ -16,19 +21,19 @@ namespace CLDVPOE.Controllers
             _configuration = configuration;
         }
 
-        public IActionResult Index()
+        public IActionResult Index()    //simply returns a list of all the venues in the database to the index view of the venue controller, this is the main view for the venues where we can see all the venues and also navigate to the create, edit and delete views
         {
             return View(_context.Venues.ToList());
         }
 
-        public IActionResult Create()
+        public IActionResult Create()   //this runs when we click on the create button on the index view of the venue controller and takes us to the create view where we can create a new venue and also upload an image for the venue
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Venue venue, IFormFile imageFile)
+        public async Task<IActionResult> Create(Venue venue, IFormFile imageFile)   //this runs when we click on the save button on the create view of the venue controller
         {
             if (ModelState.IsValid)
             {
@@ -63,14 +68,14 @@ namespace CLDVPOE.Controllers
             return View(venue);
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id)       //this brings us to the edit view where we can edit the details of the venue and also upload a new image if needed
         {
             var venue = _context.Venues.Find(id);
             if (venue == null) return NotFound();
             return View(venue);
         }
 
-        [HttpPost]
+        [HttpPost]  //this is the post method for the edit view where we update the details of the venue and also upload a new image if needed, runs when we click save
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Venue venue, IFormFile imageFile)
         {
@@ -111,7 +116,7 @@ namespace CLDVPOE.Controllers
             return View(venue);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id) //this runs when we hit delete on the venue and takes us the deletion confirmation screen
         {
             var venue = _context.Venues.Find(id);
             if (venue == null) return NotFound();
@@ -120,7 +125,7 @@ namespace CLDVPOE.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)    //this runs when we confirm the deletion of the venue, it checks if there are any active bookings for the venue and if there are it does not allow the deletion and shows an error message, if there are no active bookings it deletes the venue
         {
             var venue = await _context.Venues.FindAsync(id);
             if (venue == null) return NotFound();

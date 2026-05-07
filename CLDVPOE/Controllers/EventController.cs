@@ -14,20 +14,20 @@ namespace CLDVPOE.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() //main view controller
         {
             var eventsList = _context.Events.ToList();
             return View(eventsList);
         }
 
-        public IActionResult Create()
+        public IActionResult Create() //runs when create new event button is clicked
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event ev)
+        public async Task<IActionResult> Create(Event ev) //runs when the save button is clicked on the create view
         {
             if (ModelState.IsValid)
             {
@@ -38,7 +38,7 @@ namespace CLDVPOE.Controllers
             return View(ev);
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int id) //runs when the edit button is clicked
         {
             var ev = _context.Events.Find(id);
             if (ev == null) return NotFound();
@@ -47,7 +47,7 @@ namespace CLDVPOE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Event ev)
+        public async Task<IActionResult> Edit(int id, Event ev) //runs when save changes is clicked
         {
             if (id != ev.EventID) return NotFound();
 
@@ -62,7 +62,7 @@ namespace CLDVPOE.Controllers
             return View(ev);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int id) //runs when the delete button is clicked
         {
             var ev = _context.Events.Find(id);
             if (ev == null) return NotFound();
@@ -71,7 +71,7 @@ namespace CLDVPOE.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)  //runs when someone confirms the deletion
         {
             var ev = await _context.Events.FindAsync(id);
             if (ev == null) return NotFound();

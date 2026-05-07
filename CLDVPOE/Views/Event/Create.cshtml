@@ -2,7 +2,7 @@
 
 <h2>Add Event</h2>
 
-@if (!ViewData.ModelState.IsValid)
+@if (!ViewData.ModelState.IsValid) //simply displays validation errors in red if the model state is invalid, mostly used to warn that the user has not filled something i
 {
     <div style="color:red">
         @Html.ValidationSummary(false)

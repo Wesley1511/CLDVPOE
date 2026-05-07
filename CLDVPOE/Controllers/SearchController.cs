@@ -13,7 +13,7 @@ namespace CLDVPOE.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(string q)
+        public async Task<IActionResult> Index(string q) //the main controller for the index page of the search function, it searches through the database for matching terms and displays the information in the same way as the other views
         {
             if (string.IsNullOrWhiteSpace(q))
                 return View(new SearchResultsViewModel());
