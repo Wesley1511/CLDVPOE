@@ -30,12 +30,15 @@ namespace CLDVPOE.Controllers
                             (e.EventDescription != null && e.EventDescription.ToLower().Contains(query)))
                 .ToListAsync();
 
+            int.TryParse(q, out int searchId);
+
             var bookings = await _context.Bookings
                 .Include(b => b.Venue)
                 .Include(b => b.Event)
                 .Where(b => b.BookingStatus.ToLower().Contains(query) ||
                             (b.Venue != null && b.Venue.VenueName.ToLower().Contains(query)) ||
-                            (b.Event != null && b.Event.EventName.ToLower().Contains(query)))
+                            (b.Event != null && b.Event.EventName.ToLower().Contains(query)) ||
+                            (searchId > 0 && b.BookingID == searchId))
                 .ToListAsync();
 
             var results = new SearchResultsViewModel
