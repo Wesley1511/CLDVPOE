@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using CLDVPOE.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace CLDVPOE.Controllers
@@ -14,20 +15,23 @@ namespace CLDVPOE.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index() //main view controller
+        public IActionResult Index()
         {
-            var eventsList = _context.Events.ToList();
+            var eventsList = _context.Events
+                .Include(e => e.EventType)
+                .ToList();
             return View(eventsList);
         }
 
-        public IActionResult Create() //runs when create new event button is clicked
+        public IActionResult Create()
         {
+            ViewBag.EventTypes = new SelectList(_context.EventTypes, "EventTypeID", "TypeName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event ev) //runs when the save button is clicked on the create view
+        public async Task<IActionResult> Create(Event ev)
         {
             if (ModelState.IsValid)
             {
@@ -35,30 +39,34 @@ namespace CLDVPOE.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            ViewBag.EventTypes = new SelectList(_context.EventTypes, "EventTypeID", "TypeName");
             return View(ev);
         }
 
-        public IActionResult Edit(int id) //runs when the edit button is clicked
+        public async Task<IActionResult> Edit(int id)
         {
-            var ev = _context.Events.Find(id);
+            var ev = await _context.Events.FindAsync(id);
             if (ev == null) return NotFound();
+
+            ViewBag.EventTypes = new SelectList(_context.EventTypes, "EventTypeID", "TypeName", ev.EventTypeID);
             return View(ev);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Event ev) //runs when save changes is clicked
+        public async Task<IActionResult> Edit(int id, Event ev)
         {
             if (id != ev.EventID) return NotFound();
 
             if (ModelState.IsValid)
             {
-
                 _context.Events.Update(ev);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.EventTypes = new SelectList(_context.EventTypes, "EventTypeID", "TypeName", ev.EventTypeID);
             return View(ev);
         }
 

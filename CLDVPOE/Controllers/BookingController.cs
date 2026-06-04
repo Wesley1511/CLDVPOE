@@ -14,11 +14,12 @@ namespace CLDVPOE.Controllers
             _context = context;
         }
 
-        public IActionResult Index()    //returns a list of all the bookings in the database to the index view of the booking controller, this is the main view for the bookings where we can see all the bookings and also navigate to the create, edit and delete views
+        public IActionResult Index()
         {
             var bookings = _context.Bookings
                 .Include(b => b.Venue)
                 .Include(b => b.Event)
+                    .ThenInclude(e => e.EventType)
                 .ToList();
 
             return View(bookings);

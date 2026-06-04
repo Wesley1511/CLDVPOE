@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CLDVPOE.Models
 {
@@ -18,5 +19,9 @@ namespace CLDVPOE.Models
 
         public string? EventDescription { get; set; }
 
+        public int? EventTypeID { get; set; }
+
+        [ForeignKey("EventTypeID")]
+        public EventType? EventType { get; set; }
     }
 }

@@ -6,6 +6,7 @@
 <table>
     <tr>
         <th>Name</th>
+        <th>Type</th>
         <th>Start</th>
         <th>End</th>
         <th>Description</th>
@@ -15,6 +16,7 @@
     {
         <tr>
             <td>@e.EventName</td>
+            <td>@e.EventType?.TypeName</td>
             <td>@e.StartDate.ToShortDateString()</td>
             <td>@e.EndDate.ToShortDateString()</td>
             <td>@e.EventDescription</td>

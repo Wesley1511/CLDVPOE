@@ -8,6 +8,7 @@
         <th>BookingID</th>
         <th>Status</th>
         <th>Event</th>
+        <th>Event Type</th>
         <th>Description</th>
         <th>Venue</th>
         <th>Date</th>
@@ -19,6 +20,7 @@
             <td>@b.BookingID</td>
             <td>@b.BookingStatus</td>
             <td>@b.Event?.EventName</td>
+            <td>@b.Event?.EventType?.TypeName</td>
             <td>@b.Event?.EventDescription</td>
             <td>@b.Venue?.VenueName</td>
             <td>@b.BookingDate.ToShortDateString()</td>

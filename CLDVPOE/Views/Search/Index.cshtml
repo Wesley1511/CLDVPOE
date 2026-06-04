@@ -1,8 +1,48 @@
 ﻿@model CLDVPOE.Models.SearchResultsViewModel
 
-<h2>Search Results for "@Model.Query"</h2>
+<h2>Search & Filter</h2>
 
-@if (Model.Venues.Count == 0 && Model.Events.Count == 0 && Model.Bookings.Count == 0)
+<form asp-action="Index" asp-controller="Search" method="get">
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px; align-items:flex-end;">
+
+        <div>
+            <label>Search</label><br />
+            <input type="text" name="q" value="@Model.Query" placeholder="Search..." />
+        </div>
+
+        <div>
+            <label>Event Type</label><br />
+            <select name="eventTypeID" asp-items="@(new SelectList(Model.EventTypes, "EventTypeID", "TypeName", Model.SelectedEventTypeID))">
+                <option value="">All Types</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Start Date</label><br />
+            <input type="date" name="startDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <div>
+            <label>End Date</label><br />
+            <input type="date" name="endDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" />
+        </div>
+
+        <div>
+            <label>Venue Availability</label><br />
+            <select name="venueAvailable">
+                <option value="">All</option>
+                <option value="true" selected="@(Model.VenueAvailable == true)">Available</option>
+                <option value="false" selected="@(Model.VenueAvailable == false)">Unavailable</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </div>
+</form>
+
+@if (Model.Venues.Count == 0 && Model.Events.Count == 0 && Model.Bookings.Count == 0 && Model.Query != null)
 {
     <p>No results found.</p>
 }
@@ -15,7 +55,7 @@
             <th>Name</th>
             <th>Location</th>
             <th>Capacity</th>
-            <th>Image</th>
+            <th>Available</th>
             <th>Actions</th>
         </tr>
         @foreach (var v in Model.Venues)
@@ -24,12 +64,7 @@
                 <td>@v.VenueName</td>
                 <td>@v.Location</td>
                 <td>@v.Capacity</td>
-                <td>
-                    @if (!string.IsNullOrEmpty(v.ImagePath))
-                    {
-                        <img src="@v.ImagePath" width="100" />
-                    }
-                </td>
+                <td>@(v.IsAvailable ? "Yes" : "No")</td>
                 <td>
                     <a href="/Venue/Edit/@v.VenueID">Edit</a> |
                     <a href="/Venue/Delete/@v.VenueID">Delete</a>
@@ -45,6 +80,7 @@
     <table>
         <tr>
             <th>Name</th>
+            <th>Type</th>          @* ✅ Already here *@
             <th>Start</th>
             <th>End</th>
             <th>Actions</th>
@@ -53,6 +89,7 @@
         {
             <tr>
                 <td>@e.EventName</td>
+                <td>@e.EventType?.TypeName</td>   @* ✅ Already here *@
                 <td>@e.StartDate.ToShortDateString()</td>
                 <td>@e.EndDate.ToShortDateString()</td>
                 <td>
@@ -69,28 +106,20 @@
     <h3>Bookings</h3>
     <table>
         <tr>
-            <th>BookingID</th>
+            <th>Date</th>
             <th>Status</th>
             <th>Event</th>
-            <th>Description</th>
+            <th>Event Type</th>    @* ✅ Added *@
             <th>Venue</th>
-            <th>Date</th>
-            <th>Actions</th>
         </tr>
-
         @foreach (var b in Model.Bookings)
         {
             <tr>
-                <td>@b.BookingID</td>
+                <td>@b.BookingDate.ToShortDateString()</td>
                 <td>@b.BookingStatus</td>
                 <td>@b.Event?.EventName</td>
-                <td>@b.Event?.EventDescription</td>
+                <td>@b.Event?.EventType?.TypeName</td>   @* ✅ Added *@
                 <td>@b.Venue?.VenueName</td>
-                <td>@b.BookingDate.ToShortDateString()</td>
-                <td>
-                    <a href="/Booking/Edit/@b.BookingID">Edit</a> |
-                    <a href="/Booking/Delete/@b.BookingID">Delete</a>
-                </td>
             </tr>
         }
     </table>

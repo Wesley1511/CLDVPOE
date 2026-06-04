@@ -4,6 +4,7 @@ using CLDVPOE.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CLDVPOE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260603100126_AddEventType")]
+    partial class AddEventType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,7 +73,7 @@ namespace CLDVPOE.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventTypeID")
+                    b.Property<int>("EventTypeID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -185,7 +188,9 @@ namespace CLDVPOE.Migrations
                 {
                     b.HasOne("CLDVPOE.Models.EventType", "EventType")
                         .WithMany()
-                        .HasForeignKey("EventTypeID");
+                        .HasForeignKey("EventTypeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EventType");
                 });

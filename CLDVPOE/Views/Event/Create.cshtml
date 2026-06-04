@@ -36,5 +36,11 @@
         <span asp-validation-for="EventDescription" style="color:red"></span>
     </div>
 
+    <div>
+        <label asp-for="EventTypeID">Event Type</label>
+        <select asp-for="EventTypeID" asp-items="ViewBag.EventTypes"></select>
+        <span asp-validation-for="EventTypeID" style="color:red"></span>
+    </div>
+
     <button type="submit">Save</button>
 </form>
