@@ -2,5 +2,3 @@
 
 THE REPO FOR MY CLDV POE
 
-YOUTUBE VIDEO: https://youtu.be/ACb\_IFkiJoU
-
